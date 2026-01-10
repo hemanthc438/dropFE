@@ -4,6 +4,8 @@ import { signIn, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import GoogleAuth from "./components/GoogleAuth";
+import Image from "next/image";
+import ParallaxAnimation from "./components/Parallax";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +26,8 @@ export default function Home() {
   }
 
   return (
-    <main className="flex items-center justify-center h-screen bg-neutral-950 text-white">
+    <main className="relative bg-neutral-950 text-white h-[200vh]">
+
       <div className="flex gap-4">
         <button
           onClick={() => router.push("/sign-up")}
