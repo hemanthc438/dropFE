@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
+import GoogleAuth from "../components/GoogleAuth";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -62,6 +63,7 @@ export default function SignUpPage() {
                     Create Account
                 </button>
             </form>
+            <GoogleAuth />
         </main>
     );
 }

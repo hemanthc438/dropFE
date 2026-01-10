@@ -3,6 +3,7 @@
 import { signIn, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import GoogleAuth from "./components/GoogleAuth";
 
 export default function Home() {
   const router = useRouter();
@@ -13,13 +14,6 @@ export default function Home() {
       router.push("/dashboard");
     }
   }, [session, isPending, router]);
-
-  const handleGoogleSignIn = async () => {
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/dashboard",
-    });
-  };
 
   if (isPending) {
     return (
@@ -42,11 +36,7 @@ export default function Home() {
           className="border border-white text-white font-medium px-6 py-2 rounded-md hover:bg-neutral-800">
           Sign In
         </button>
-        <button
-          onClick={() => { handleGoogleSignIn() }}
-          className="border border-white text-white font-medium px-6 py-2 rounded-md hover:bg-neutral-800">
-          continue with google
-        </button>
+        <GoogleAuth />
       </div>
     </main>
   );

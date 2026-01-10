@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
+import GoogleAuth from "../components/GoogleAuth";
 
 export default function SignInPage() {
     const router = useRouter();
@@ -54,6 +55,7 @@ export default function SignInPage() {
                     Sign In
                 </button>
             </form>
+            <GoogleAuth />
         </main>
     );
 }
