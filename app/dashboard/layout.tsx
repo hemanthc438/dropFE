@@ -25,8 +25,8 @@ export default function DashboardLayout({
 
     const { user } = session;
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <Header />
+        <div className="min-h-screen">
+            <Header user={user} />
             {children}
         </div>
     );
