@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import GoogleAuth from "./components/GoogleAuth";
 import Image from "next/image";
 import ParallaxAnimation from "./components/Parallax";
+import HeadingSplitText from "@/animations/HeadingSplitText";
 
 export default function Home() {
   const router = useRouter();
@@ -26,39 +27,28 @@ export default function Home() {
   }
 
   return (
-    <main className="relative overflow-hidden bg-black text-white min-h-screen py-20">
+    <main className="relative overflow-hidden bg-gradient-to-r from-neutral-300 to-white text-black min-h-screen py-20">
       {/* Animated background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-10" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Hero Section */}
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+          {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="text-sm text-gray-300">Welcome to Drop</span>
-          </div>
+          </div> */}
 
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-8xl font-bold leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-cyan-200 animate-gradient">
-              Ship Faster
-            </span>
-            <br />
-            <span className="text-white">Build Better</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            The modern platform for developers who want to{" "}
-            <span className="text-purple-400 font-semibold">collaborate</span>,{" "}
-            <span className="text-cyan-400 font-semibold">innovate</span>, and{" "}
-            <span className="text-pink-400 font-semibold">scale</span>.
-          </p>
+          <div className="flex items-center gap-2">
+            <HeadingSplitText text="DROP" className="text-6xl md:text-8xl font-bold leading-tight" />
+            <HeadingSplitText text="FE" className="text-6xl md:text-8xl font-bold leading-tight" />
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
@@ -124,31 +114,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        .animate-gradient {
-          background-size: 200% auto;
-          animation: gradient 3s linear infinite;
-        }
-      `}</style>
     </main>
   );
 }

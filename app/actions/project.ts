@@ -1,10 +1,16 @@
-import { useSession } from "@/lib/auth-client";
+"use server";
+
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import prisma from "@/lib/prisma";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 
 export async function createProject(formData: FormData) {
-    const { data: session } = await useSession();
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
     if (!session) {
         return {
             error: "Unauthorized"
@@ -33,6 +39,7 @@ export async function createProject(formData: FormData) {
             },
         })
         revalidatePath("/dashboard");
+        revalidatePath("/dashboard/projects");
         return { success: true, project, apiKey: project.apiKeys[0].key };
     } catch (error) {
         console.error(error);
