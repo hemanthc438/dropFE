@@ -44,7 +44,7 @@ export default async function ProjectDetailsPage({
     const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/v1/send`;
 
     return (
-        <div className="relative overflow-hidden bg-black text-white min-h-screen">
+        <div className="relative overflow-hidden  text-white min-h-screen">
             {/* Animated background grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 
@@ -197,8 +197,8 @@ export default async function ProjectDetailsPage({
                                         >
                                             <td className="px-6 py-4">
                                                 <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${log.status === "SENT"
-                                                        ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
-                                                        : "bg-red-500/10 text-red-300 border border-red-500/20"
+                                                    ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                                                    : "bg-red-500/10 text-red-300 border border-red-500/20"
                                                     }`}>
                                                     {log.status === "SENT" ? (
                                                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -61,7 +61,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                className="absolute inset-0 /80 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
@@ -105,7 +105,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                 <label className="block text-sm font-medium text-gray-300">
                                     API Key (Keep this secure!)
                                 </label>
-                                <div className="bg-black border border-emerald-500/20 rounded-lg p-4">
+                                <div className=" border border-emerald-500/20 rounded-lg p-4">
                                     <code className="text-emerald-400 font-mono text-sm break-all">
                                         {newApiKey}
                                     </code>
@@ -174,7 +174,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                     id="name"
                                     required
                                     placeholder="My Awesome App"
-                                    className="w-full px-4 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all"
+                                    className="w-full px-4 py-3  border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all"
                                     disabled={isLoading}
                                 />
                             </div>
@@ -192,7 +192,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                     id="description"
                                     rows={3}
                                     placeholder="What is this project for?"
-                                    className="w-full px-4 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all resize-none"
+                                    className="w-full px-4 py-3  border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all resize-none"
                                     disabled={isLoading}
                                 />
                             </div>

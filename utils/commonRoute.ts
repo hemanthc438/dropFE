@@ -7,6 +7,10 @@ export async function getUserDetails(id: string) {
         where: {
             id: id,
         },
+        include: {
+            personalProfile: true,
+            organizationProfile: true,
+        },
     });
     return user;
 }

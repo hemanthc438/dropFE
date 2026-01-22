@@ -43,7 +43,7 @@ export default async function ProjectsListPage() {
     });
 
     return (
-        <div className="relative overflow-hidden bg-black text-white min-h-screen">
+        <div className="relative overflow-hidden  text-white min-h-screen">
             {/* Animated background grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 

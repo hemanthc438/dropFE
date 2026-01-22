@@ -2,7 +2,7 @@
 import { useSession } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { getUserDetails } from "@/utils/commonRoute";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function ProfileLayout({
     children,
@@ -10,6 +10,7 @@ export default function ProfileLayout({
     children: React.ReactNode;
 }) {
     const router = useRouter();
+    const pathname = usePathname();
     const { data: session } = useSession();
     const user = session?.user;
     const getUser = async () => {
@@ -17,13 +18,15 @@ export default function ProfileLayout({
         const userData = await getUserDetails(user?.id);
         console.log(userData);
         if (!userData?.accountType) {
-            router.push('/dashboard/profile/setupprofile');
+            router.push('/dashboard/profile/setup-profile');
         }
     }
     useEffect(() => {
         if (!user?.id) return;
+        console.log(pathname);
+        if (pathname === '/dashboard/profile/setup-profile') return;
         getUser();
-    }, [user])
+    }, [user, pathname])
     return (
         <>
             {children}

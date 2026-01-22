@@ -4,6 +4,7 @@ import { signOut } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import CreateProject from "./components/CreateProject";
+import { useCursor } from "@/context/CursorProvider";
 
 interface DashboardClientProps {
     user: {
@@ -21,12 +22,21 @@ interface DashboardClientProps {
 export default function DashboardClient({ user, stats }: DashboardClientProps) {
     const router = useRouter();
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const { cursor, setCursor } = useCursor();
+
+    const handleMouseEnter = () => {
+        setCursor({ variant: 'hover' });
+    };
+
+    const handleMouseLeave = () => {
+        setCursor({ variant: 'default' });
+    };
 
     return (
         <>
             <CreateProject open={showCreateModal} onClose={() => setShowCreateModal(false)} />
 
-            <main className="relative overflow-hidden bg-black text-white min-h-screen">
+            <main className="relative overflow-hidden  text-white min-h-screen">
                 {/* Animated background grid */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 
@@ -94,6 +104,8 @@ export default function DashboardClient({ user, stats }: DashboardClientProps) {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <button
                                 onClick={() => setShowCreateModal(true)}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
                                 className="group p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 text-left">
                                 <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">➕</div>
                                 <h3 className="font-semibold mb-1">New Project</h3>
@@ -101,18 +113,24 @@ export default function DashboardClient({ user, stats }: DashboardClientProps) {
                             </button>
                             <button
                                 onClick={() => router.push("/dashboard/projects")}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
                                 className="group p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 text-left">
                                 <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">📁</div>
                                 <h3 className="font-semibold mb-1">View Projects</h3>
                                 <p className="text-sm text-gray-400">See all your projects</p>
                             </button>
                             <button
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
                                 className="group p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 text-left">
                                 <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">📚</div>
                                 <h3 className="font-semibold mb-1">Documentation</h3>
                                 <p className="text-sm text-gray-400">View the docs</p>
                             </button>
                             <button
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
                                 className="group p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 text-left">
                                 <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">💬</div>
                                 <h3 className="font-semibold mb-1">Support</h3>
