@@ -1,9 +1,8 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
+import React, { useState, useEffect } from 'react'
 import { useSession } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
-import { savePersonalProfile, saveOrganizationProfile, getPersonalProfile, getOrganizationProfile } from '@/app/actions/profile-actions'
+import { savePersonalProfile, saveOrganizationProfile } from '@/app/actions/profile-actions'
 import { getUserDetails } from '@/utils/commonRoute'
 
 interface PersonalAnswers {
@@ -120,215 +119,218 @@ export default function EditProfile() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <p className="text-lg">Loading profile...</p>
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="w-16 h-16 border-4 border-[#6B3A6E] border-t-transparent rounded-full animate-spin"></div>
             </div>
         );
     }
 
     if (!accountType) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <p className="text-lg">No profile found. Please complete setup first.</p>
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <p className="text-lg font-orbitron text-gray-400">No profile found. Please complete setup first.</p>
             </div>
         );
     }
 
     return (
-        <div className='min-h-screen w-full max-w-4xl mx-auto px-6 py-12'>
-            <div className="mb-8">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent mb-2">
-                    Edit Profile
-                </h1>
-                <p className="text-foreground/60">Update your profile information</p>
+        <div className='relative overflow-hidden bg-black text-white min-h-screen'>
+            {/* Background grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20" />
+
+            <div className='relative z-10 w-full max-w-4xl mx-auto px-6 py-12'>
+                <div className="mb-8">
+                    <h1 className="text-4xl font-black font-foldit text-white mb-2">
+                        Edit Profile
+                    </h1>
+                    <p className="text-gray-400 font-orbitron font-light">Update your profile information</p>
+                </div>
+
+                {accountType === 'PERSONAL' && (
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Full Name *
+                            </label>
+                            <input
+                                type="text"
+                                value={personalAnswers.fullname}
+                                onChange={(e) => setPersonalAnswers({ ...personalAnswers, fullname: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Profile Image URL
+                            </label>
+                            <input
+                                type="text"
+                                value={personalAnswers.profileImage}
+                                onChange={(e) => setPersonalAnswers({ ...personalAnswers, profileImage: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Designation
+                            </label>
+                            <input
+                                type="text"
+                                value={personalAnswers.designation}
+                                onChange={(e) => setPersonalAnswers({ ...personalAnswers, designation: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Bio
+                            </label>
+                            <textarea
+                                value={personalAnswers.bio}
+                                onChange={(e) => setPersonalAnswers({ ...personalAnswers, bio: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 resize-none min-h-[150px] text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div className="flex gap-4 pt-4">
+                            <button
+                                onClick={() => router.back()}
+                                className='px-8 py-3 rounded-xl font-medium bg-white/5 hover:bg-white/10 transition-all duration-200 font-orbitron border border-white/10'
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handlePersonalSubmit}
+                                disabled={!personalAnswers.fullname || isSubmitting}
+                                className='px-8 py-3 rounded-xl font-semibold text-white
+                                         bg-[#4E2A4F] hover:bg-[#6B3A6E]
+                                         disabled:opacity-50 disabled:cursor-not-allowed
+                                         transition-all duration-300 hover:scale-105 font-orbitron'
+                            >
+                                {isSubmitting ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {accountType === 'ORGANIZATION' && (
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Company Name *
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.companyName}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, companyName: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Company Logo URL
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.logo}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, logo: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Industry
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.industry}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, industry: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Company Size
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.companySize}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, companySize: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Website
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.website}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, website: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2 font-orbitron">
+                                Your Role
+                            </label>
+                            <input
+                                type="text"
+                                value={organizationAnswers.role}
+                                onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, role: e.target.value })}
+                                className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                         focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                         text-lg transition-all duration-200 text-white font-orbitron'
+                            />
+                        </div>
+
+                        <div className="flex gap-4 pt-4">
+                            <button
+                                onClick={() => router.back()}
+                                className='px-8 py-3 rounded-xl font-medium bg-white/5 hover:bg-white/10 transition-all duration-200 font-orbitron border border-white/10'
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleOrganizationSubmit}
+                                disabled={!organizationAnswers.companyName || isSubmitting}
+                                className='px-8 py-3 rounded-xl font-semibold text-white
+                                         bg-[#4E2A4F] hover:bg-[#6B3A6E]
+                                         disabled:opacity-50 disabled:cursor-not-allowed
+                                         transition-all duration-300 hover:scale-105 font-orbitron'
+                            >
+                                {isSubmitting ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
-
-            {accountType === 'PERSONAL' && (
-                <div className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Full Name *
-                        </label>
-                        <input
-                            type="text"
-                            value={personalAnswers.fullname}
-                            onChange={(e) => setPersonalAnswers({ ...personalAnswers, fullname: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Profile Image URL
-                        </label>
-                        <input
-                            type="text"
-                            value={personalAnswers.profileImage}
-                            onChange={(e) => setPersonalAnswers({ ...personalAnswers, profileImage: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Designation
-                        </label>
-                        <input
-                            type="text"
-                            value={personalAnswers.designation}
-                            onChange={(e) => setPersonalAnswers({ ...personalAnswers, designation: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Bio
-                        </label>
-                        <textarea
-                            value={personalAnswers.bio}
-                            onChange={(e) => setPersonalAnswers({ ...personalAnswers, bio: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                     text-lg transition-all duration-200 resize-none min-h-[150px]'
-                        />
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
-                        <button
-                            onClick={() => router.back()}
-                            className='px-8 py-3 rounded-xl font-medium bg-foreground/10 hover:bg-foreground/20 transition-all duration-200'
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={handlePersonalSubmit}
-                            disabled={!personalAnswers.fullname || isSubmitting}
-                            className='px-8 py-3 rounded-xl font-semibold text-white
-                                     bg-gradient-to-r from-blue-500 to-purple-600
-                                     hover:from-blue-600 hover:to-purple-700
-                                     disabled:opacity-50 disabled:cursor-not-allowed
-                                     transition-all duration-200 shadow-lg shadow-blue-500/25'
-                        >
-                            {isSubmitting ? 'Saving...' : 'Save Changes'}
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {accountType === 'ORGANIZATION' && (
-                <div className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Company Name *
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.companyName}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, companyName: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Company Logo URL
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.logo}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, logo: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Industry
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.industry}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, industry: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Company Size
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.companySize}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, companySize: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Website
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.website}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, website: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-foreground/80 mb-2">
-                            Your Role
-                        </label>
-                        <input
-                            type="text"
-                            value={organizationAnswers.role}
-                            onChange={(e) => setOrganizationAnswers({ ...organizationAnswers, role: e.target.value })}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                     focus:border-green-500 focus:outline-none focus:ring-4 focus:ring-green-500/20
-                                     text-lg transition-all duration-200'
-                        />
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
-                        <button
-                            onClick={() => router.back()}
-                            className='px-8 py-3 rounded-xl font-medium bg-foreground/10 hover:bg-foreground/20 transition-all duration-200'
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={handleOrganizationSubmit}
-                            disabled={!organizationAnswers.companyName || isSubmitting}
-                            className='px-8 py-3 rounded-xl font-semibold text-white
-                                     bg-gradient-to-r from-green-500 to-emerald-600
-                                     hover:from-green-600 hover:to-emerald-700
-                                     disabled:opacity-50 disabled:cursor-not-allowed
-                                     transition-all duration-200 shadow-lg shadow-green-500/25'
-                        >
-                            {isSubmitting ? 'Saving...' : 'Save Changes'}
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

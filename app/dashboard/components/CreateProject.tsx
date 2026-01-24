@@ -61,19 +61,19 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 /80 backdrop-blur-sm"
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
             {/* Modal */}
             <div className="relative z-10 w-full max-w-lg mx-4">
-                <div className="bg-gray-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+                <div className="bg-black/90 border border-white/10 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-md">
                     {newApiKey ? (
                         // Success State
                         <div className="p-8 space-y-6">
                             {/* Success Icon */}
                             <div className="flex justify-center">
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-500 to-green-500 flex items-center justify-center">
+                                <div className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center">
                                     <svg
                                         className="w-8 h-8 text-white"
                                         fill="none"
@@ -92,25 +92,25 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
 
                             {/* Success Message */}
                             <div className="text-center space-y-2">
-                                <h3 className="text-2xl font-bold text-white">
+                                <h3 className="text-2xl font-black text-white font-foldit">
                                     Project Created!
                                 </h3>
-                                <p className="text-gray-400">
+                                <p className="text-gray-400 font-orbitron font-light">
                                     Your project has been created successfully. Here's your API key:
                                 </p>
                             </div>
 
                             {/* API Key Display */}
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-300">
+                                <label className="block text-sm font-medium text-gray-300 font-orbitron">
                                     API Key (Keep this secure!)
                                 </label>
-                                <div className=" border border-emerald-500/20 rounded-lg p-4">
+                                <div className="bg-white/5 border border-emerald-500/30 rounded-xl p-4">
                                     <code className="text-emerald-400 font-mono text-sm break-all">
                                         {newApiKey}
                                     </code>
                                 </div>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-500 font-orbitron font-light">
                                     Save this key now. You can view it again in your project settings.
                                 </p>
                             </div>
@@ -119,13 +119,13 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                             <div className="flex gap-3">
                                 <button
                                     onClick={handleViewProject}
-                                    className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+                                    className="flex-1 px-6 py-3 bg-[#4E2A4F] text-white font-semibold rounded-xl hover:bg-[#6B3A6E] transition-all duration-300 hover:scale-105 font-orbitron"
                                 >
                                     View Project
                                 </button>
                                 <button
                                     onClick={handleClose}
-                                    className="flex-1 px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300"
+                                    className="flex-1 px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-xl hover:bg-white/10 transition-all duration-300 font-orbitron"
                                 >
                                     Close
                                 </button>
@@ -136,7 +136,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                         <form onSubmit={handleSubmit} className="p-8 space-y-6">
                             {/* Header */}
                             <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-cyan-200">
+                                <h2 className="text-2xl font-black text-white font-foldit">
                                     Create New Project
                                 </h2>
                                 <button
@@ -164,7 +164,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                             <div className="space-y-2">
                                 <label
                                     htmlFor="name"
-                                    className="block text-sm font-medium text-gray-300"
+                                    className="block text-sm font-medium text-gray-400 font-orbitron"
                                 >
                                     Project Name *
                                 </label>
@@ -174,7 +174,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                     id="name"
                                     required
                                     placeholder="My Awesome App"
-                                    className="w-full px-4 py-3  border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:bg-white/10 focus:border-[#6B3A6E] outline-none transition-all font-orbitron"
                                     disabled={isLoading}
                                 />
                             </div>
@@ -183,7 +183,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                             <div className="space-y-2">
                                 <label
                                     htmlFor="description"
-                                    className="block text-sm font-medium text-gray-300"
+                                    className="block text-sm font-medium text-gray-400 font-orbitron"
                                 >
                                     Description (optional)
                                 </label>
@@ -192,7 +192,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                     id="description"
                                     rows={3}
                                     placeholder="What is this project for?"
-                                    className="w-full px-4 py-3  border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all resize-none"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:bg-white/10 focus:border-[#6B3A6E] outline-none transition-all resize-none font-orbitron"
                                     disabled={isLoading}
                                 />
                             </div>
@@ -202,7 +202,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="flex-1 px-6 py-3 bg-[#4E2A4F] text-white font-semibold rounded-xl hover:bg-[#6B3A6E] transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-orbitron"
                                 >
                                     {isLoading ? (
                                         <>
@@ -217,7 +217,7 @@ const CreateProject = ({ open, onClose }: CreateProjectProps) => {
                                     type="button"
                                     onClick={handleClose}
                                     disabled={isLoading}
-                                    className="px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-xl hover:bg-white/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-orbitron"
                                 >
                                     Cancel
                                 </button>

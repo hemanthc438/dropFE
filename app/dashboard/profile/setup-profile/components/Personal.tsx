@@ -110,7 +110,6 @@ const Personal = () => {
             const result = await savePersonalProfile(session.user.id, answers);
 
             if (result.success) {
-                // Redirect to profile page after successful save
                 router.push('/dashboard/profile');
             } else {
                 alert(result.error || 'Failed to save profile');
@@ -133,17 +132,17 @@ const Personal = () => {
             {/* Progress Bar */}
             <div className='mb-12'>
                 <div className='flex justify-between items-center mb-3'>
-                    <span className='text-sm font-medium text-foreground/60'>
+                    <span className='text-sm font-medium text-gray-400 font-orbitron'>
                         Step {currentStep + 1} of {totalSteps}
                     </span>
-                    <span className='text-sm font-medium text-foreground/60'>
+                    <span className='text-sm font-medium text-gray-400 font-orbitron'>
                         {Math.round(progress)}%
                     </span>
                 </div>
-                <div className='h-2 bg-foreground/10 rounded-full overflow-hidden'>
+                <div className='h-2 bg-white/10 rounded-full overflow-hidden'>
                     <div
                         ref={progressBarRef}
-                        className='h-full bg-gradient-to-r from-blue-500 to-purple-600'
+                        className='h-full bg-[#4E2A4F]'
                         style={{ width: '0%' }}
                     />
                 </div>
@@ -154,10 +153,10 @@ const Personal = () => {
                 <div ref={questionRef} className='space-y-8'>
                     {/* Question */}
                     <div>
-                        <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent'>
+                        <h2 className='text-4xl md:text-5xl font-black mb-4 text-white font-foldit'>
                             {currentQuestion.question}
                         </h2>
-                        <p className='text-foreground/60'>
+                        <p className='text-gray-400 font-orbitron font-light'>
                             Answer honestly to personalize your experience
                         </p>
                     </div>
@@ -168,9 +167,9 @@ const Personal = () => {
                             value={currentValue}
                             onChange={(e) => handleChange(e.target.value)}
                             placeholder={currentQuestion.placeholder}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                         focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                         text-lg transition-all duration-200 resize-none min-h-[150px]'
+                            className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                     focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                     text-lg transition-all duration-200 resize-none min-h-[150px] text-white font-orbitron'
                             autoFocus
                         />
                     ) : (
@@ -179,9 +178,9 @@ const Personal = () => {
                             value={currentValue}
                             onChange={(e) => handleChange(e.target.value)}
                             placeholder={currentQuestion.placeholder}
-                            className='w-full px-6 py-4 bg-foreground/5 border-2 border-foreground/10 rounded-2xl
-                                         focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                         text-lg transition-all duration-200'
+                            className='w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl
+                                     focus:bg-white/10 focus:border-[#6B3A6E] focus:outline-none
+                                     text-lg transition-all duration-200 text-white font-orbitron'
                             autoFocus
                         />
                     )}
@@ -196,7 +195,7 @@ const Personal = () => {
                     disabled={currentStep === 0}
                     className='px-6 py-3 rounded-xl font-medium transition-all duration-200
                              disabled:opacity-0 disabled:pointer-events-none
-                             hover:bg-foreground/10 hover:scale-105 active:scale-95'
+                             hover:bg-white/10 hover:scale-105 active:scale-95 font-orbitron text-white'
                 >
                     ← Back
                 </button>
@@ -206,11 +205,10 @@ const Personal = () => {
                     onClick={isLastStep ? handleSubmit : handleNext}
                     disabled={!canProceed || isSubmitting}
                     className='px-8 py-3 rounded-xl font-semibold text-white
-                             bg-gradient-to-r from-blue-500 to-purple-600
-                             hover:from-blue-600 hover:to-purple-700
+                             bg-[#4E2A4F] hover:bg-[#6B3A6E]
                              disabled:opacity-50 disabled:cursor-not-allowed
-                             transition-all duration-200 shadow-lg shadow-blue-500/25
-                             hover:scale-105 active:scale-95'
+                             transition-all duration-300
+                             hover:scale-105 active:scale-95 font-orbitron'
                 >
                     {isSubmitting ? 'Saving...' : isLastStep ? 'Complete Setup' : 'Next →'}
                 </button>
@@ -220,7 +218,7 @@ const Personal = () => {
             <div className='text-center mt-6'>
                 <button
                     onClick={() => handleChange('')}
-                    className='text-sm text-foreground/40 hover:text-foreground/60 transition-colors'
+                    className='text-sm text-gray-500 hover:text-gray-400 transition-colors font-orbitron font-light'
                 >
                     Skip this question
                 </button>

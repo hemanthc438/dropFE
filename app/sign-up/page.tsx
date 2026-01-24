@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
 import GoogleAuth from "../components/GoogleAuth";
+import Link from "next/link";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -29,41 +30,72 @@ export default function SignUpPage() {
     }
 
     return (
-        <main className="max-w-md mx-auto p-6 space-y-4 text-white">
-            <h1 className="text-2xl font-bold">Sign Up</h1>
+        <main className="relative overflow-hidden bg-black text-white min-h-screen flex items-center justify-center">
+            {/* Animated background grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20" />
 
-            {error && <p className="text-red-500">{error}</p>}
+            <div className="relative z-10 w-full max-w-md mx-auto p-6">
+                {/* Card */}
+                <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                    <h1 className="text-4xl font-black mb-2 font-foldit text-white">Sign Up</h1>
+                    <p className="text-gray-400 mb-8 font-orbitron font-light">Create your DropFE account</p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    name="name"
-                    placeholder="Full Name"
-                    required
-                    className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
-                />
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                    className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
-                />
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    required
-                    minLength={8}
-                    className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
-                />
-                <button
-                    type="submit"
-                    className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
-                >
-                    Create Account
-                </button>
-            </form>
-            <GoogleAuth />
+                    {error && (
+                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                            <p className="text-red-400 text-sm font-orbitron">{error}</p>
+                        </div>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+                        <div>
+                            <label className="block text-sm font-medium mb-2 font-orbitron text-gray-400">Full Name</label>
+                            <input
+                                name="name"
+                                placeholder="John Doe"
+                                required
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:bg-white/10 focus:border-white/20 outline-none transition-all font-orbitron"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium mb-2 font-orbitron text-gray-400">Email</label>
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="you@example.com"
+                                required
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:bg-white/10 focus:border-white/20 outline-none transition-all font-orbitron"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium mb-2 font-orbitron text-gray-400">Password</label>
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder="••••••••"
+                                required
+                                minLength={8}
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:bg-white/10 focus:border-white/20 outline-none transition-all font-orbitron"
+                            />
+                            <p className="text-xs text-gray-500 mt-1 font-orbitron font-light">Minimum 8 characters</p>
+                        </div>
+                        <button
+                            type="submit"
+                            className="w-full bg-[#4E2A4F] text-white font-bold rounded-xl px-4 py-3 hover:bg-[#6B3A6E] transition-all duration-300 hover:scale-105 font-orbitron"
+                        >
+                            Create Account
+                        </button>
+                    </form>
+
+                    <GoogleAuth />
+
+                    <p className="text-center text-gray-400 mt-6 font-orbitron font-light">
+                        Already have an account?{" "}
+                        <Link href="/sign-in" className="text-[#8B5A8E] hover:text-purple-300 transition-colors font-medium">
+                            Sign In
+                        </Link>
+                    </p>
+                </div>
+            </div>
         </main>
     );
 }

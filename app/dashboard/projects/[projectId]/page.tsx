@@ -68,7 +68,7 @@ export default async function ProjectDetailsPage({
                             </h1>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="px-3 py-1 rounded-full text-sm font-medium bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                            <div className="px-3 py-1 rounded-full text-sm font-medium bg-purple-500/10 text-purple-300 border border-[#6B3A6E]/20">
                                 {project.apiKeys.filter(k => !k.revoked).length} Active Key{project.apiKeys.filter(k => !k.revoked).length !== 1 ? 's' : ''}
                             </div>
                         </div>
