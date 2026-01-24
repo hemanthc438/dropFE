@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { AccountType } from "@/app/generated/prisma/enums";
+import { AccountType } from "@/app/generated/prisma/client";
 
 interface PersonalProfileData {
     fullname: string;
