@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 
@@ -42,7 +43,8 @@ const Header = ({ user }: { user: any }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className='hidden md:flex items-center gap-8'>
+            <div className='hidden md:flex w-full gap-8 items-center'>
+                <Image src="/dropfe-logo.svg" alt="DropFE Logo" width={50} height={50} className='w-10 h-10 object-contain' />
                 <Link
                     href={links.home}
                     className='font-orbitron font-medium text-white hover:text-[#8B5A8E] transition-colors duration-200'
