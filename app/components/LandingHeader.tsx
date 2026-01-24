@@ -75,9 +75,9 @@ const LandingHeader = () => {
         }, 1.5)
 
         tl.to("#title", {
-            width: "auto",
-            alignItems: "start",
-            justifyContent: "start",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
             duration: 2,
             delay: 1,
             ease: "power4.out",
@@ -110,16 +110,16 @@ const LandingHeader = () => {
     return (
         <div
             id="header"
-            className='flex flex-col md:flex-row justify-center md:justify-between items-center p-4 md:p-6 h-screen md:h-[80px] bg-black sticky top-0 z-50 overflow-hidden'
+            className='flex flex-col md:flex-row justify-center md:justify-between items-center p-4 md:p-6 h-screen bg-black sticky top-0 z-50 overflow-hidden'
         >
             <div
                 id="title"
-                className='w-full md:w-auto flex justify-center md:justify-start items-center mb-6 md:mb-0'
+                className='w-full flex justify-center items-center mb-6 md:mb-0'
             >
                 <Link
                     id="title-text"
                     href="/"
-                    className='font-foldit font-bold text-[60px] sm:text-[80px] md:text-[35px] text-center md:text-left leading-tight hover:text-[#8B5A8E] transition-colors'
+                    className='font-foldit font-bold md:text-[300px] text-[100px] w-full text-center leading-tight hover:text-[#8B5A8E] transition-colors'
                     ref={titleRef}
                 >
                     DropFE
