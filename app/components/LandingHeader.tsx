@@ -119,7 +119,7 @@ const LandingHeader = () => {
                 <Link
                     id="title-text"
                     href="/"
-                    className='font-foldit font-bold md:text-[300px] text-[100px] w-full text-center leading-tight hover:text-[#8B5A8E] transition-colors'
+                    className='font-foldit font-bold md:text-[300px] text-[80px] w-full text-center leading-tight hover:text-[#8B5A8E] transition-colors'
                     ref={titleRef}
                 >
                     DropFE
